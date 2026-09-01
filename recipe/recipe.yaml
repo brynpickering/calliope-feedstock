@@ -10,7 +10,7 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://pypi.org/packages/source/p/{{ name }}/{{ name }}-${{ version }}.tar.gz
+  url: https://pypi.org/packages/source/p/${{ name }}/${{ name }}-${{ version }}.tar.gz
   sha256: 58e4ba08dfda4d5b30b5169876126d6d72131b6d521a684f352bd49a75216be4
 
 build:
@@ -19,7 +19,7 @@ build:
   script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   python:
     entry_points:
-      - calliope = calliope.cli:cli
+      - ${{ name }} = ${{ name }}.cli:cli
 
 requirements:
   host:
@@ -52,7 +52,7 @@ requirements:
 tests:
   - python:
       imports:
-        - calliope
+        - ${{ name }}
       pip_check: true
       python_version:
         - ${{ python_min }}.*
@@ -61,7 +61,7 @@ tests:
       run:
         - python ${{ python_min }}.*
     script:
-      - calliope --help
+      - ${{ name }} --help
 
 about:
   license: Apache-2.0
